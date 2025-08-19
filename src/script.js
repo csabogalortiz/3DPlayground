@@ -16,7 +16,7 @@ const donuts = []
  * Fonts + Text
  */
 const fontLoader = new FontLoader()
-fontLoader.load('/fonts/Brandon Grotesque Bold_Regular.json', (font) => {
+fontLoader.load('/fonts/BrandonGrotesqueBold_Regular.json', (font) => {
   // Main title (still matcap)
   const textGeometry = new TextGeometry('Play Inside Ideas', {
     font,
