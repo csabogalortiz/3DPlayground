@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   root: 'src/',
-  publicDir: '../static/',
+  publicDir: '../public/',
   base: '/3DPlayground/', // must match repo name
   server: {
     host: true,

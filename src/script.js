@@ -1,3 +1,4 @@
+
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
@@ -16,7 +17,7 @@ const donuts = []
  * Fonts + Text
  */
 const fontLoader = new FontLoader()
-fontLoader.load('/3DPlayground/fonts/BrandonGrotesqueBold_Regular.json', (font) => {
+fontLoader.load(`${import.meta.env.BASE_URL}fonts/BrandonGrotesqueBold_Regular.json`, (font) => {
   // Main title (still matcap)
   const textGeometry = new TextGeometry('Play Inside Ideas', {
     font,
@@ -33,12 +34,12 @@ fontLoader.load('/3DPlayground/fonts/BrandonGrotesqueBold_Regular.json', (font) 
   textGeometry.computeBoundingBox()
 
   const matcapLoader = new THREE.TextureLoader()
-  const matcapTexture3 = matcapLoader.load('/textures/matcaps/37.png')
+  const matcapTexture3 = matcapLoader.load(`${import.meta.env.BASE_URL}textures/matcaps/37.png`)
   const textMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture3 })
   const text = new THREE.Mesh(textGeometry, textMaterial)
   scene.add(text)
 
-  // Subline: COMING SOON (placed BELOW main line, plain color)
+  // Subline: COMING SOON
   const subTextGeometry = new TextGeometry('COMING SOON', {
     font,
     size: 0.1,
@@ -59,18 +60,17 @@ fontLoader.load('/3DPlayground/fonts/BrandonGrotesqueBold_Regular.json', (font) 
   const subHeight  = subBox.max.y  - subBox.min.y
   const gap = 0.12
 
-  // Move BELOW
   subTextGeometry.translate(0, -(mainHeight * 0.5) - (subHeight * 0.5) - gap, 0)
 
-  // Plain color only for subline
   const subTextMaterial = new THREE.MeshBasicMaterial({ color: 0x444656 })
   const subText = new THREE.Mesh(subTextGeometry, subTextMaterial)
   scene.add(subText)
 
-  // Donuts (still matcap)
+  // Donuts
   const donutGeometry = new THREE.TorusGeometry(0.4, 0.2, 40, 60)
-  const matcap11 = matcapLoader.load('/textures/matcaps/22.png')
-  const matcapTexture = matcapLoader.load('/textures/matcaps/9.jpg')
+  const matcap11 = matcapLoader.load(`${import.meta.env.BASE_URL}textures/matcaps/22.png`)
+  const matcapTexture = matcapLoader.load(`${import.meta.env.BASE_URL}textures/matcaps/9.jpg`)
+
   for (let i = 0; i < 200; i++) {
     const chosenMatcap = Math.random() < 0.5 ? matcap11 : matcapTexture
     const donutMaterial = new THREE.MeshMatcapMaterial({ matcap: chosenMatcap })
@@ -127,7 +127,7 @@ controls.enableDamping = true
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-renderer.setClearColor(0x000000, 0) // transparent bg
+renderer.setClearColor(0x000000, 0)
 
 /**
  * Animate
